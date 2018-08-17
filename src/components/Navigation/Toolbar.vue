@@ -9,7 +9,7 @@
             align-center
             justify-center
         >
-            <v-flex md6 sm10>
+            <v-flex md6 sm8>
                 <v-form 
                 >
                     <v-text-field
