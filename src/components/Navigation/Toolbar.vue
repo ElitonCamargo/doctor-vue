@@ -3,6 +3,7 @@
         color="light-blue"
         flat
         app
+        height="70vh"
     >
         <v-toolbar-items class="ma-1 pr-2">
                 <v-icon dark>
