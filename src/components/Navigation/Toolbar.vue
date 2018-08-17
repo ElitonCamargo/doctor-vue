@@ -3,13 +3,13 @@
         color="blue darken-2"
         flat
         absolute
-        
+        app
     >
         <v-layout
             align-center
             justify-center
         >
-            <v-flex md5 sm8>
+            <v-flex md6 sm10>
                 <v-form 
                 >
                     <v-text-field
