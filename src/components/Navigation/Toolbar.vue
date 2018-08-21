@@ -1,6 +1,6 @@
 <template>
     <v-toolbar
-        color="light-blue"
+        color="cyan"
         flat
         app
         height="70vh"

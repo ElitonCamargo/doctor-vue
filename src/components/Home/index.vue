@@ -7,20 +7,26 @@
                 dark
             >
                 <v-flex xs10>
-                    CONTENT
+                    
                 </v-flex>
             </v-layout>
-        </v-container>       
+        </v-container>
+        <FormLogin v-if="form"/>      
     </v-content>
 </template>
 
 <script>
+import FormLogin from '@/components/Forms/login-form'
 import db from '@/firebase/firebaseinit.js'
 export default {
     name: "Home",
     data() {
-        return {}
-            Logged: true
+        return {
+            form: false
         }
+    },
+    components: {
+        FormLogin
     }
+}
 </script>
