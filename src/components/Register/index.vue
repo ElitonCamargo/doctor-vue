@@ -3,7 +3,7 @@
         <v-container>
             <v-layout align-center justify-center>
                 <v-flex md5>
-                    Login
+                    Register
                     <v-form>
                         <v-text-field v-model="email">
                             
@@ -12,7 +12,7 @@
 
                         </v-text-field>
                     </v-form>
-                    <v-btn @click.stop="loginUser()"> Login </v-btn>
+                    <v-btn @click.stop="registerUser()"> Register </v-btn>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -22,19 +22,19 @@
 <script>
 import firebase from 'firebase'
 export default {
-    mame: 'login',
+    mame: 'register',
     data(){
         return{
             email: '',
-            password: '',
+            password: ''
         }
     },
     methods: {
-        async loginUser(){
+        async registerUser(){
             try {
-                const User = await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-                alert(`Logged in ${User.user.email}`) 
-                this.$router.push('/') 
+                const User = await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+                alert(`User ${User.user.email} created`)     
+                this.$router.push('/')       
             } catch (error) {
                 alert(error.message)
             }
