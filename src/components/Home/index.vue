@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import db from '@/firebase/firebaseinit.js'
 export default {
     name: "Home",
     data() {
