@@ -1,15 +1,95 @@
 <template>
-    <v-content>
-        <v-container>
+        <v-container grid-list-md>
             <v-layout>
-                AAAAAAAAAAAAAAAAA
+              <v-flex xs12>
+                <v-tabs
+                    color="cyan darken-2"
+                    dark
+                    tabs
+                    grow
+                    slider-color="cyan"
+                >
+                    <v-tab>
+                        ENTRAR
+                    </v-tab>
+                    <v-tab>
+                        CADASTRE-SE
+                    </v-tab>
+                    <v-tab-item>
+                        <v-form>
+                            <v-text-field
+                                prepend-icon="mail"
+                                v-model="email"
+                                :rules="emailRules"
+                                label="Email"
+                                required
+                            >
+
+                            </v-text-field>
+                            <v-text-field
+                                prepend-icon="lock"
+                                v-model="password"
+                                type="Password"
+                                label="Senha"
+                            >
+                            </v-text-field>
+                            <v-btn 
+                                block
+                                :rules="passRules"
+                                color="cyan"
+                                dark
+                            >
+                            Login
+                            </v-btn>
+                        </v-form>
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-form>
+                            <v-text-field
+                                prepend-icon="mail"
+                                v-model="emailCad"
+                                :rules="emailRules"
+                                label="Email"
+                                required
+                            >
+
+                            </v-text-field>
+                            <v-text-field
+                                prepend-icon="lock"
+                                v-model="passwordCad"
+                                type="Password"
+                                label="Senha"
+                            >
+                            </v-text-field>
+                            <v-btn 
+                                block
+                                :rules="passRules"
+                                color="cyan"
+                                dark
+                            >
+                                CADASTRAR
+                            </v-btn>
+                        </v-form>
+                    </v-tab-item>
+                </v-tabs>
+              </v-flex>
             </v-layout>
-        </v-container>
-    </v-content>
+          </v-container>
 </template>
 
 <script>
 export default {
-    
+    name: 'loginform',
+    data(){
+        return{
+            email: '',
+            password: '',
+            emailCad: '',
+            passwordCad: '',
+            emailRules: [
+                
+            ]
+        }
+    }
 }
 </script>
