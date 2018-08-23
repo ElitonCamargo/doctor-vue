@@ -45,20 +45,17 @@
         </v-toolbar-items>
         <v-dialog
             v-model="dialog"
-            
             max-width="500pt"
         >
-            <v-card
-                
-            >
-                <LoginForm />
+            <v-card>
+                <FormLR />
             </v-card>
         </v-dialog>
     </v-toolbar>
 </template>
 
 <script>
-import LoginForm from '@/components/Forms/login-form'
+import FormLR from '@/components/Forms/login-form'
 export default {
     name: 'Toolbar',
     data(){
@@ -67,7 +64,7 @@ export default {
         }
     },
     components: {
-        LoginForm
+        FormLR
     }
 }
 </script>

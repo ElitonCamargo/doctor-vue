@@ -52,12 +52,12 @@
 </template>
 
 <script>
-import LoginForm from '@/components/Login'
+import FormLogin from '@/components/Login'
 import RegisterForm from '@/components/Register'
 export default {
     name: 'loginform',
     components: {
-        LoginForm,
+        FormLogin,
         RegisterForm
     }
 }

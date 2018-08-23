@@ -6,10 +6,8 @@
                     Login
                     <v-form>
                         <v-text-field v-model="email">
-                            
                         </v-text-field>
                         <v-text-field v-model="password">
-
                         </v-text-field>
                     </v-form>
                     <v-btn @click.stop="loginUser()"> Login </v-btn>
