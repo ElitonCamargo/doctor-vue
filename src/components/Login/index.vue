@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import { auth } from 'firebase'
 export default {
     mame: 'login',
     data(){
