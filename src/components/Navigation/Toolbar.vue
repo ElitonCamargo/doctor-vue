@@ -43,7 +43,17 @@
                 Login
             </v-btn>
         </v-toolbar-items>
-        
+        <v-dialog
+            v-model="dialog"
+            
+            max-width="500pt"
+        >
+            <v-card
+                
+            >
+                <LoginForm />
+            </v-card>
+        </v-dialog>
     </v-toolbar>
 </template>
 
