@@ -28,10 +28,14 @@
             </v-flex>
         </v-layout>
         <v-toolbar-items>
+            <v-dialog v-model="dialog" max-width="50vw">
+                <LoginForm />
+            </v-dialog>
             <v-btn
                 dark
                 flat
                 left
+                @click.stop="dialog = true"
             >
                 <v-icon>
                     account_circle
@@ -39,11 +43,21 @@
                 Login
             </v-btn>
         </v-toolbar-items>
+        
     </v-toolbar>
 </template>
 
 <script>
+import LoginForm from '@/components/Forms/login-form'
 export default {
-    name: 'Toolbar'
+    name: 'Toolbar',
+    data(){
+        return{
+            dialog: false
+        }
+    },
+    components: {
+        LoginForm
+    }
 }
 </script>
