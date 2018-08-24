@@ -39,18 +39,24 @@
         >
             CADASTRAR
         </v-btn>
-        <v-layout class="alertErro">
-            dasidjoasidasidjoasidasidjoasidasidjoasi
-            dasidjoasidasidjoasidasidjoasidasidjoasi
-            dasidjoasidasidjoasidasidjoasidasidjoasi
-            dasidjoasidasidjoasidasidjoasidasidjoasi
-            dasidjoasidasidjoasidasidjoasidasidjoasi
-        </v-layout>
+        <v-snackbar
+            v-model="alert"
+            :top="true"
+            :color="alertColor"
+            :timeout="2000"
+            :multi-line="true"
+        >
+            {{alertMessage}}
+
+            <v-icon>
+                warning
+            </v-icon>
+        </v-snackbar>
     </v-form>
 </template>
 
 <script>
-import { auth } from 'firebase'
+import firebase from 'firebase'
 import { validationMixin } from 'vuelidate'
 import { required, minLength, sameAs ,email } from 'vuelidate/lib/validators'
 export default {
@@ -59,13 +65,16 @@ export default {
         return{
             email: '',
             password: '',
-            confPass: ''
+            confPass: '',
+            alert: false,
+            alertMessage: '',
+            alertColor: ''
         }
     },
     mixins: [validationMixin],
     validations: {
         email: { required, email },
-        password: { required, minLength: minLength(4)},
+        password: { required, minLength: minLength(6)},
         confPass: { required, sameAsPassword: sameAs('password')}
         
     },
@@ -81,7 +90,7 @@ export default {
             const errors = []
             if(!this.$v.password.$dirty) return errors
             !this.$v.password.required && errors.push('Senha obrigatória')
-            !this.$v.password.minLength && errors.push('Minimo de 4 digitos')
+            !this.$v.password.minLength && errors.push('Minimo de 6 digitos')
             return errors
         },
         confErrors () {
@@ -96,17 +105,22 @@ export default {
         async userRegister(){
             this.$v.$touch()
             if(this.$v.$invalid){
+                this.alertColor = 'red'
+                this.alertMessage = 'Preencha os campos corretamente'
+                this.alert = true
             }else {
+                try {
+                    const user = await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+                    this.alertColor = 'green'
+                    this.alertMessage = `Usuario cadastrado!`
+                    this.alert = true
+                } catch (error) {
+                    this.alertColor = 'red'
+                    this.alertMessage = error.message
+                    this.alert = true
+                }
             }
         }
     }
 };
 </script>
-
-<style>
-    .alertErro{
-        position: fixed;
-        background-color: black;
-        bottom: 0;
-    }
-</style>
