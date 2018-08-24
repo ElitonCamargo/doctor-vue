@@ -1,6 +1,7 @@
 <template>
     <v-form>
         <v-text-field
+            class="pt-1"
             prepend-icon="mail"
             v-model="email"
             label="Email"
@@ -11,6 +12,7 @@
         >
         </v-text-field>
         <v-text-field
+            class="pt-1"
             prepend-icon="lock"
             v-model="password"
             type="Password"
@@ -21,6 +23,7 @@
         >
         </v-text-field>
         <v-text-field
+            class="pt-1"
             prepend-icon="lock"
             v-model="confPass"
             type="Password"
@@ -122,5 +125,5 @@ export default {
             }
         }
     }
-};
+}
 </script>

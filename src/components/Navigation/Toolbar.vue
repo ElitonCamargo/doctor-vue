@@ -28,14 +28,11 @@
             </v-flex>
         </v-layout>
         <v-toolbar-items>
-            <v-dialog v-model="dialog" max-width="50vw">
-                <LoginForm />
-            </v-dialog>
             <v-btn
                 dark
                 flat
                 left
-                @click.stop="dialog = true"
+                @click.stop="openDialog()"
             >
                 <v-icon>
                     account_circle
@@ -48,7 +45,7 @@
             max-width="500pt"
         >
             <v-card>
-                <FormLR />
+                <FormLR/>
             </v-card>
         </v-dialog>
     </v-toolbar>
@@ -65,6 +62,11 @@ export default {
     },
     components: {
         FormLR
+    },
+    methods:{
+        openDialog(){
+            this.dialog = true
+        }
     }
 }
 </script>

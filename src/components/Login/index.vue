@@ -1,40 +1,110 @@
 <template>
-    <v-content>
-        <v-container>
-            <v-layout align-center justify-center>
-                <v-flex md5>
-                    Login
-                    <v-form>
-                        <v-text-field v-model="email">
-                        </v-text-field>
-                        <v-text-field v-model="password">
-                        </v-text-field>
-                    </v-form>
-                    <v-btn @click.stop="loginUser()"> Login </v-btn>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-content>
+    <v-form>
+        <v-text-field
+            class="pt-1"
+            prepend-icon="mail"
+            v-model="email"
+            label="Email"
+            :error-messages="emailErrors"
+            @input="$v.email.$touch()"
+            @blur="$v.email.$touch()"
+            required
+        >
+        </v-text-field>
+        <v-text-field
+            class="pt-1"
+            prepend-icon="lock"
+            v-model="password"
+            type="Password"
+            label="Senha"
+            :error-messages="passwordErrors"
+            @input="$v.password.$touch()"
+            @blur="$v.password.$touch()"
+        >
+        </v-text-field>
+        <v-btn 
+            block
+            color="cyan darken-4"
+            outline
+            @click.stop="userLogin()"
+        >
+            LOGIN
+        </v-btn>
+        <v-snackbar
+            v-model="alert"
+            :top="true"
+            :color="alertColor"
+            :timeout="2000"
+            :multi-line="true"
+        >
+            {{alertMessage}}
+
+            <v-icon>
+                {{alertIcon}}
+            </v-icon>
+        </v-snackbar>
+    </v-form>
 </template>
 
 <script>
-import { auth } from 'firebase'
+import firebase from 'firebase'
+import { validationMixin } from 'vuelidate'
+import { required, minLength, email } from 'vuelidate/lib/validators'
 export default {
-    mame: 'login',
+    name: 'FormLogin',
     data(){
         return{
             email: '',
             password: '',
+            confPass: '',
+            alert: false,
+            alertMessage: '',
+            alertColor: '',
+            alertIcon: 'warning'
         }
     },
-    methods: {
-        async loginUser(){
-            try {
-                const User = await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-                alert(`Logged in ${User.user.email}`) 
-                this.$router.push('/') 
-            } catch (error) {
-                alert(error.message)
+    mixins: [validationMixin],
+    validations: {
+        email: { required, email },
+        password: { required, minLength: minLength(6)}
+        
+    },
+    computed:{
+        emailErrors () {
+            const errors = []
+            if(!this.$v.email.$dirty) return errors
+            !this.$v.email.email && errors.push('Email Precisa ser Valido!')
+            !this.$v.email.required && errors.push('Email é obrigatório')
+            return errors
+        },
+        passwordErrors () {
+            const errors = []
+            if(!this.$v.password.$dirty) return errors
+            !this.$v.password.required && errors.push('Senha obrigatória')
+            !this.$v.password.minLength && errors.push('Minimo de 6 digitos')
+            return errors
+        }
+    },
+    methods:{
+        async userLogin(){
+            this.$v.$touch()
+            if(this.$v.$invalid){
+                this.alertColor = 'red'
+                this.alertMessage = 'Preencha os campos corretamente'
+                this.alert = true
+            }else {
+                try {
+                    const user = await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+                    this.alertColor = 'green'
+                    this.alertIcon = 'info'
+                    this.alertMessage = `Succes!`
+                    this.alert = true
+                } catch (error) {
+                    this.alertIcon = 'warning'
+                    this.alertColor = 'red'
+                    this.alertMessage = error.message
+                    this.alert = true
+                }
             }
         }
     }

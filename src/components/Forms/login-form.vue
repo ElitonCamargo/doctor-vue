@@ -5,9 +5,9 @@
                 <v-tabs
                     color="cyan darken-2"
                     dark
-                    fixed-tabs
+                    
                     grow
-                    slider-color="cyan"
+                    slider-color="white"
                 >
                     <v-tab>
                         ENTRAR
@@ -16,31 +16,7 @@
                         CADASTRE-SE
                     </v-tab>
                     <v-tab-item>
-                        <v-form>
-                            <v-text-field
-                                prepend-icon="mail"
-                                v-model="email"
-                                :rules="emailRules"
-                                label="Email"
-                                required
-                            >
-                            </v-text-field>
-                            <v-text-field
-                                prepend-icon="lock"
-                                v-model="password"
-                                type="Password"
-                                label="Senha"
-                            >
-                            </v-text-field>
-                            <v-btn 
-                                block
-                                :rules="passRules"
-                                color="cyan"
-                                dark
-                            >
-                                Login
-                            </v-btn>
-                        </v-form>
+                        <FormLogin />
                     </v-tab-item>
                     <v-tab-item>
                         <RegisterForm />
